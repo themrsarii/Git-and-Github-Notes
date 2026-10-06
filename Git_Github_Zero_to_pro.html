@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Git & GitHub: From Zero to Pro · Sarfaraz</title>
+<meta name="description" content="A beginner-friendly Git and GitHub guide with chapters, quizzes and progress tracking, by Sarfaraz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f1ec;--surface:#fffdf9;--ink:#16201e;--ink2:#46524f;--line:#ddd7cc;--brand:#0f5c52;--brand2:#0a4139;--hot:#e8472b;--soft:#dcebe6;--code:#12201d;--codeink:#e6efe9;--cmt:#7fa396;--out:#f2b85b;--ok:#1d7a4d;--bad:#b3341f;
+--serif:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1715;--surface:#13221f;--ink:#e8efe9;--ink2:#a5b5af;--line:#243a35;--brand:#4fc3ae;--brand2:#79d7c5;--hot:#ff7a5c;--soft:#183530;--code:#091210;--ok:#5fd394;--bad:#ff8b73}}
+:root[data-theme="dark"]{--bg:#0c1715;--surface:#13221f;--ink:#e8efe9;--ink2:#a5b5af;--line:#243a35;--brand:#4fc3ae;--brand2:#79d7c5;--hot:#ff7a5c;--soft:#183530;--code:#091210;--ok:#5fd394;--bad:#ff8b73}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.02rem/1.7 var(--sans)}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:12px;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.top b{font-family:var(--serif);font-size:1.05rem}
+.bar{flex:1;height:8px;background:var(--line);border-radius:8px;overflow:hidden;max-width:360px;margin-left:auto}
+.bar i{display:block;height:100%;width:0;background:var(--hot);transition:width .4s}
+.pct{font-size:.85rem;color:var(--ink2);min-width:7ch}
+.tbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;font:500 .85rem var(--sans);cursor:pointer}
+/* cover */
+.cover{max-width:1080px;margin:0 auto;padding:48px 20px 56px;display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:56px;align-items:center}
+.book{aspect-ratio:3/4;background:var(--brand2);color:#f4f1ec;border-radius:6px 14px 14px 6px;display:grid;grid-template-columns:22px 1fr;overflow:hidden;box-shadow:18px 22px 0 -6px var(--line),0 2px 0 rgba(0,0,0,.2);transform:rotate(-2deg)}
+:root[data-theme="dark"] .book{background:#0a4139}
+.spine{background:var(--hot)}
+.face{padding:26px 24px;display:flex;flex-direction:column}
+.face h1{font:800 clamp(2rem,5vw,2.7rem)/1.02 var(--serif);margin:0 0 8px;letter-spacing:-.02em}
+.face p{margin:0;font-size:.9rem;color:#bcd8d0}
+.face svg{margin:auto 0;width:100%}
+.face .by{font:600 1.25rem var(--serif);color:#fff;border-top:2px solid var(--hot);padding-top:10px}
+.about h2{font:800 clamp(1.8rem,4vw,2.6rem)/1.1 var(--serif);margin:0 0 14px;letter-spacing:-.02em}
+.about p{color:var(--ink2);max-width:52ch}
+.stats{display:flex;gap:28px;margin:20px 0;flex-wrap:wrap}
+.stats div{font-size:.9rem;color:var(--ink2)}.stats b{display:block;font:800 1.9rem var(--serif);color:var(--ink)}
+.btn{display:inline-block;background:var(--hot);color:#fff;border:0;border-radius:10px;padding:13px 26px;font:700 1rem var(--sans);cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.links a{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:500;font-size:.9rem}
+.links a:hover{border-color:var(--brand)}
+.links svg{width:16px;height:16px;fill:currentColor}
+/* reader */
+.reader{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px}
+nav.chap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);align-self:start;max-height:calc(100vh - 100px);overflow:auto}
+nav.chap button{display:flex;gap:10px;width:100%;text-align:left;background:none;border:0;border-left:3px solid var(--line);color:var(--ink2);padding:9px 12px;font:500 .93rem var(--sans);cursor:pointer}
+nav.chap button:hover{color:var(--ink)}
+nav.chap button.on{border-color:var(--hot);color:var(--ink);font-weight:700;background:var(--soft)}
+nav.chap button.done::after{content:"✓";margin-left:auto;color:var(--ok);font-weight:700}
+article{min-width:0;max-width:760px}
+article h2{font:800 clamp(1.8rem,4vw,2.5rem)/1.1 var(--serif);margin:0 0 6px;letter-spacing:-.02em}
+article .lead{color:var(--ink2);font-size:1.12rem;margin:0 0 28px}
+article h3{font:700 1.3rem var(--serif);margin:34px 0 8px}
+code{font:500 .86em var(--mono);background:var(--soft);padding:2px 6px;border-radius:5px}
+.cb{position:relative;margin:16px 0}
+pre{margin:0;background:var(--code);color:var(--codeink);padding:18px 20px;border-radius:10px;overflow-x:auto;font:400 .87rem/1.75 var(--mono)}
+pre .c{color:var(--cmt);font-style:italic}pre .o{color:var(--out)}
+.cp{position:absolute;top:8px;right:8px;background:#ffffff1a;color:#e6efe9;border:0;border-radius:6px;padding:4px 10px;font:500 .75rem var(--sans);cursor:pointer}
+.note{border-left:5px solid var(--brand);background:var(--soft);padding:14px 18px;border-radius:0 10px 10px 0;margin:20px 0}
+.note.warn{border-color:var(--hot);background:color-mix(in srgb,var(--hot) 12%,var(--surface))}
+.note b:first-child{display:block;margin-bottom:2px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0}
+.flow span{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-weight:700}
+.flow em{font-style:normal;color:var(--hot);font-weight:800}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.92rem;display:block;overflow-x:auto}
+th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:var(--soft)}
+.quiz{margin-top:40px;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.quiz h3{margin:0 0 10px}
+.quiz button{display:block;width:100%;text-align:left;margin:8px 0;padding:11px 14px;background:var(--bg);border:1.5px solid var(--line);border-radius:10px;color:var(--ink);font:500 .95rem var(--sans);cursor:pointer}
+.quiz button:hover{border-color:var(--brand)}
+.quiz button.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--bg))}
+.quiz button.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--bg))}
+.fb{min-height:1.5em;font-weight:700;margin-top:6px}
+.pn{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
+.pn .tbtn{padding:11px 18px;font-size:.95rem}
+footer{text-align:center;color:var(--ink2);font-size:.88rem;padding:24px 20px 40px;border-top:1px solid var(--line)}
+@media (max-width:860px){
+.cover{grid-template-columns:1fr;gap:36px;padding-top:32px}.book{max-width:320px;margin:0 auto}
+.reader{grid-template-columns:1fr;gap:16px}
+nav.chap{position:static;max-height:none;display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+nav.chap button{border:1px solid var(--line);border-radius:20px;white-space:nowrap;width:auto;padding:7px 14px}
+nav.chap button.on{border-color:var(--hot)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><b>Git &amp; GitHub</b><div class="bar" aria-hidden="true"><i id="pf"></i></div><span class="pct" id="pt">0% done</span><button class="tbtn" id="th" aria-label="Toggle theme">Theme</button></header>
+
+<section class="cover" id="top">
+  <div class="book" aria-label="Book cover">
+    <div class="spine"></div>
+    <div class="face">
+      <h1>Git &amp; GitHub</h1><p>From zero to pro, with Nobita, Gian and Suneo</p>
+      <svg viewBox="0 0 260 150" fill="none" stroke-width="5" stroke-linecap="round" aria-hidden="true">
+        <path d="M10 75H250" stroke="#f4f1ec"/><path d="M60 75C80 75 85 30 110 30H170C190 30 195 75 215 75" stroke="#e8472b"/><path d="M95 75C115 75 120 120 140 120H190C205 120 210 75 225 75" stroke="#f2b85b"/>
+        <g fill="#0a4139" stroke="#f4f1ec" stroke-width="4"><circle cx="30" cy="75" r="9"/><circle cx="60" cy="75" r="9"/><circle cx="95" cy="75" r="9"/><circle cx="230" cy="75" r="11"/></g>
+        <g fill="#e8472b" stroke="none"><circle cx="110" cy="30" r="8"/><circle cx="170" cy="30" r="8"/></g><g fill="#f2b85b" stroke="none"><circle cx="140" cy="120" r="8"/><circle cx="190" cy="120" r="8"/></g>
+      </svg>
+      <div class="by">Sarfaraz</div>
+    </div>
+  </div>
+  <div class="about">
+    <h2>Learn version control by following a real team project.</h2>
+    <p>Eleven short chapters take you from your first commit to pull requests. Each ends with a quick check, and your progress is saved in this browser.</p>
+    <div class="stats"><div><b>11</b>chapters</div><div><b>11</b>quick checks</div><div><b>0</b>cost</div></div>
+    <button class="btn" id="start">Start chapter 1</button>
+    <div class="links">
+      <a href="https://github.com/themrsarii" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.600 9.600 0 0 1 5 0c1.900-1.300 2.800-1 2.800-1 .5 1.400.2 2.400.1 2.700.6.700 1 1.600 1 2.700 0 3.900-2.400 4.700-4.600 5 .4.300.7.900.7 1.800v2.700c0 .3.2.6.7.5A10 10 0 0 0 22 12c0-5.500-4.500-10-10-10z"/></svg>GitHub</a>
+      <a href="https://linkedin.com/in/themrsarii" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.200 8.500h3.700V20H4.200zM6 3a2.100 2.100 0 1 1 0 4.200A2.100 2.100 0 0 1 6 3zm4 5.500h3.500v1.600c.5-.9 1.700-1.900 3.600-1.900 3.800 0 4.500 2.500 4.500 5.700V20H17.900v-5.300c0-1.300 0-2.900-1.800-2.900s-2 1.400-2 2.800V20H10z"/></svg>LinkedIn</a>
+      <a href="mailto:the.mrsarii@gmail.com"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.500L4.500 7v.1L12 13l7.500-5.900V7z"/></svg>the.mrsarii@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<main class="reader" id="reader">
+  <nav class="chap" id="nav" aria-label="Chapters"></nav>
+  <article id="art" aria-live="polite"></article>
+</main>
+<footer>Written by <a href="https://github.com/themrsarii" target="_blank" rel="noopener">Sarfaraz</a> · <a href="https://linkedin.com/in/themrsarii" target="_blank" rel="noopener">LinkedIn</a> · <a href="mailto:the.mrsarii@gmail.com">Email</a></footer>
+
+<script>
+const C=t=>'<div class="cb"><button class="cp">Copy</button><pre>'+t.trim().replace(/&/g,'&amp;').replace(/</g,'&lt;').split('\n').map(l=>l.startsWith('#')?'<span class="c">'+l+'</span>':l.startsWith('> ')?'<span class="o">'+l.slice(2)+'</span>':l).join('\n')+'</pre></div>';
+const N=(t,b,w)=>'<div class="note'+(w?' warn':'')+'"><b>'+t+'</b>'+b+'</div>';
+const T=(h,r)=>'<table><thead><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+r.map(x=>'<tr>'+x.map(y=>'<td>'+y+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+const L=[
+{t:'Why Git?',l:'Three friends, one School Project Tracker, and a lot of files named final_v3_REAL.',b:`
+<p>Nobita, Gian and Suneo share code by email and USB. Work gets overwritten, nobody knows who changed what, and one dead laptop loses everything.</p>
+<div class="flow"><span>Snapshots</span><em>+</em><span>History</span><em>+</em><span>Branches</span><em>+</em><span>Backup</span></div>
+<p><strong>Git</strong> is a program on your computer that saves snapshots of your project and remembers who changed what. <strong>GitHub</strong> is a website that stores a copy online so your team can share it. Git works without GitHub, but not the other way round.</p>
+${N('Analogy','Git is your notebook with every draft kept. GitHub is the library shelf where others can read a copy.')}`,
+q:['Which one runs on your own computer?',['Git','GitHub','Both'],0]},
+{t:'Install & set up',l:'Five minutes, once per computer.',b:`
+<p>Windows: download from <code>git-scm.com</code> and accept the defaults, then open <strong>Git Bash</strong>. Mac: type <code>git --version</code> and accept the install prompt. Ubuntu: <code>sudo apt install git</code>.</p>
+${C(`git --version
+> git version 2.43.0`)}
+<h3>Tell Git who you are</h3>
+${C(`git config --global user.name "Nobita Nobi"
+git config --global user.email "nobita@doraemon.com"
+git config --list`)}
+${N('Use your GitHub email','If the email differs from your GitHub account, your commits will not link to your profile.',1)}
+<p>Never type the <code>$</code> you see in some tutorials. It only marks a terminal command.</p>`,
+q:['What does --global do?',['Uploads to GitHub','Applies the setting to every project on this computer','Makes the repo public'],1]},
+{t:'The three stages',l:'The single most important idea in Git.',b:`
+<div class="flow"><span>Working directory</span><em>git add</em><span>Staging area</span><em>git commit</em><span>Repository</span></div>
+<p><strong>Working directory</strong> is a whiteboard: you edit freely. <strong>Staging area</strong> is the envelope: you pick what goes in the snapshot. <strong>Repository</strong> is the sealed safe: the snapshot is saved for good.</p>
+${C(`git status                  # shows score.txt as untracked
+git add score.txt           # move to staging
+git commit -m "Add score"   # save the snapshot
+git status
+> nothing to commit, working tree clean`)}
+${N('Rule','Always <code>git add</code> before <code>git commit</code>. An empty staging area means nothing gets committed.',1)}`,
+q:['Which command moves a file into the staging area?',['git commit','git add','git push'],1]},
+{t:'Everyday commands',l:'The handful you will type every day.',b:`
+${C(`mkdir school-project && cd school-project
+git init                 # start tracking this folder
+git status               # what changed?
+git add .                # stage everything
+git commit -m "Add readme file"
+git log --oneline        # compact history, press Q to quit
+git diff                 # line-by-line changes`)}
+<p>Write commit messages that say what the commit does: <em>Add login page</em>, <em>Fix score bug</em>.</p>
+<h3>Ignoring files</h3>
+<p>Put a <code>.gitignore</code> file in the project root to keep secrets and junk out of Git.</p>
+${C(`passwords.txt
+temp/
+*.log
+node_modules/
+!important.log     # exception`)}
+<p>Git skips empty folders. Add an empty <code>.gitkeep</code> file inside to keep one.</p>`,
+q:['Where would you list passwords.txt so Git never tracks it?',['.gitkeep','.gitignore','README.md'],1]},
+{t:'Undoing mistakes',l:'Pick the tool that matches where the mistake lives.',b:`
+${T(['Situation','Command'],[['Staged the wrong file','<code>git restore --staged file</code>'],['Throw away edits','<code>git restore file</code>'],['Undo commit, keep work staged','<code>git reset --soft HEAD~1</code>'],['Undo commit, keep work unstaged','<code>git reset HEAD~1</code>'],['Undo commit and delete work','<code>git reset --hard HEAD~1</code>'],['Undo a pushed commit safely','<code>git revert &lt;id&gt;</code>']])}
+${N('Danger','<code>git restore</code> and <code>reset --hard</code> delete uncommitted work for good.',1)}
+${N('Best practice','Use <code>revert</code> for anything already on GitHub. Use <code>reset</code> only on local commits.')}`,
+q:['A bad commit is already on GitHub. What is safest?',['git reset --hard','git revert','Delete .git'],1]},
+{t:'Branches & merging',l:'Experiment without breaking main.',b:`
+<p>A branch is a parallel line of work. Nobita builds the login page on its own branch while Gian\'s <code>main</code> keeps working.</p>
+${C(`git switch -c feature-login   # create and switch
+git add . && git commit -m "Add login page"
+git switch main                # login.txt disappears here
+git merge feature-login
+git branch -d feature-login`)}
+<h3>Four kinds of merge</h3>
+${T(['Type','Merge commit?','Use when','Command'],[['Fast-forward','No','main has not moved','<code>git merge feature</code>'],['Three-way','Yes','Both branches have new commits','<code>git merge feature -m "msg"</code>'],['Squash','You make one','Collapse messy commits','<code>git merge --squash feature</code>'],['Octopus','Yes, many parents','3+ independent branches','<code>git merge a b c -m "msg"</code>']])}
+${N('Stuck in Vim?','Press <code>ESC</code>, type <code>:wq</code>, press Enter. Passing <code>-m</code> avoids it.')}`,
+q:['Which merge squeezes many commits into one clean commit?',['Fast-forward','Squash','Octopus'],1]},
+{t:'Merge conflicts',l:'Two people edited the same line. Git asks you to choose.',b:`
+${C(`git merge feature-scoring
+> CONFLICT (content): Merge conflict in score.txt`)}
+<p>Git marks the file with both versions:</p>
+${C(`<<<<<<< HEAD
+Total Score: 100
+=======
+Total Score: 200
+>>>>>>> feature-scoring`)}
+<p>Top half is your branch, bottom half is the one you merge in. Edit the file to the final text and delete all three marker lines.</p>
+${C(`git add score.txt
+git commit -m "Resolve conflict: use score 200"
+git merge --abort    # or cancel and start over`)}`,
+q:['What must you do before committing a resolved conflict?',['Remove all conflict markers','Delete the branch','Run git reset'],0]},
+{t:'GitHub & SSH',l:'Put your project online and stop typing passwords.',b:`
+<p>Create an account at <code>github.com</code> with the same email as your git config. Then click <strong>+ → New repository</strong>, leave "Add a README" unchecked, and connect your folder:</p>
+${C(`git remote add origin git@github.com:gian-doraemon/school-project.git
+git remote -v
+git push -u origin main`)}
+<p><code>origin</code> is just a nickname for the GitHub URL. <code>-u</code> remembers it, so later you only type <code>git push</code>.</p>
+<h3>HTTPS or SSH?</h3>
+${T(['','HTTPS','SSH'],[['Login','Token each time','Key pair, set up once'],['Best for','Quick one-off use','Daily work']])}
+${C(`ssh-keygen -t ed25519 -C "nobita@doraemon.com"
+eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub     # paste into GitHub > Settings > SSH keys
+ssh -T git@github.com
+> Hi nobita-nobi! You've successfully authenticated`)}
+${N('Keep it secret','<code>id_ed25519</code> is your private key. Never share it. Only the <code>.pub</code> file goes to GitHub.',1)}`,
+q:['Which SSH file do you upload to GitHub?',['id_ed25519','id_ed25519.pub','known_hosts'],1]},
+{t:'Push, pull & clone',l:'Keep every computer in sync.',b:`
+<div class="flow"><span>Your repo</span><em>push →</em><span>GitHub</span><em>← pull</em><span>Teammate</span></div>
+${C(`git clone git@github.com:gian-doraemon/school-project.git
+git pull                 # 1. get the latest
+# ...edit files...
+git add . && git commit -m "Add login feature"
+git push                 # 2. share it`)}
+${N('Golden rule','Run <code>git pull</code> before you start work. It prevents most conflicts.')}
+<p><code>git fetch</code> downloads without merging so you can look first. <code>git pull</code> is fetch plus merge.</p>
+<h3>Remote branches</h3>
+${C(`git push -u origin feature-login
+git branch -a
+git fetch origin
+git switch feature-database       # tracks the remote branch
+git push origin --delete feature-login`)}`,
+q:['What is git pull?',['Only fetch','Fetch plus merge','Only push'],1]},
+{t:'Pull requests & forks',l:'How teams review code, and how you contribute to other people\'s projects.',b:`
+<p>A <strong>pull request</strong> proposes your branch for merging and lets others review it first. Push the branch, open the <strong>Pull requests</strong> tab, click <strong>New pull request</strong>, write a clear title and description, then a teammate reviews, approves and merges.</p>
+<h3>Contributing to a project you do not own</h3>
+<div class="flow"><span>Fork</span><em>→</em><span>Clone</span><em>→</em><span>Branch</span><em>→</em><span>Push</span><em>→</em><span>Pull request</span></div>
+${C(`git clone git@github.com:nobita-nobi/school-project.git   # your fork
+git remote add upstream git@github.com:gian-doraemon/school-project.git
+git switch -c fix-homepage
+git add . && git commit -m "Fix homepage title"
+git push origin fix-homepage      # then open the PR on GitHub
+# after it is merged, sync your fork:
+git switch main && git pull upstream main && git push origin main`)}
+<p><code>origin</code> is your fork. <code>upstream</code> is the original.</p>`,
+q:['What is "upstream" in a fork workflow?',['Your fork','The original repository','Your laptop'],1]},
+{t:'Stash & rebase',l:'Two power tools for a tidy workflow.',b:`
+<h3>Stash: pause unfinished work</h3>
+<p>Urgent bug while your feature is half-done? Shelve it, fix the bug, bring it back.</p>
+${C(`git stash
+git switch main     # fix and push the bug
+git switch feature-login
+git stash pop       # restore your work
+git stash list`)}
+<h3>Rebase: a straight-line history</h3>
+<p>Rebase replays your commits on top of the latest <code>main</code> instead of adding a merge commit.</p>
+${C(`git switch feature-login
+git rebase main`)}
+${N('Never rebase shared commits','Only rebase commits that exist on your computer alone. Rewriting pushed history breaks your teammates\' copies.',1)}`,
+q:['When is rebase unsafe?',['On local commits','On commits already pushed and shared','On feature branches'],1]},
+{t:'Cheatsheet',l:'Everything in one place. You made it through.',b:`
+${T(['Goal','Command'],[['Set name / email','<code>git config --global user.name "N"</code>'],['Start / clone','<code>git init</code> · <code>git clone url</code>'],['Stage + save','<code>git add .</code> · <code>git commit -m "msg"</code>'],['Look around','<code>git status</code> · <code>git log --oneline</code> · <code>git diff</code>'],['Branch','<code>git switch -c name</code> · <code>git merge name</code>'],['Undo','<code>git restore</code> · <code>git reset</code> · <code>git revert</code>'],['Share','<code>git push</code> · <code>git pull</code> · <code>git fetch</code>'],['Pause / tidy','<code>git stash</code> · <code>git rebase main</code>']])}
+<h3>The daily loop</h3>
+${C(`git pull
+git switch -c feature
+# ...work...
+git add . && git commit -m "message"
+git push -u origin feature
+# open a Pull Request, then after merge:
+git switch main && git pull && git branch -d feature`)}
+${N('Next step','Practice on a real school project today. The fastest way to learn Git is to break something and fix it.')}`,
+q:['What should you run before starting work each day?',['git pull','git reset --hard','git stash clear'],0]}
+];
+const $=s=>document.querySelector(s);let cur=0,done=[];
+try{done=JSON.parse(localStorage.getItem('gg-done')||'[]')}catch(e){}
+function save(){try{localStorage.setItem('gg-done',JSON.stringify(done))}catch(e){}}
+function prog(){const p=Math.round(done.length/L.length*100);$('#pf').style.width=p+'%';$('#pt').textContent=p+'% done'}
+function nav(){$('#nav').innerHTML=L.map((c,i)=>`<button data-i="${i}" class="${i==cur?'on':''} ${done.includes(i)?'done':''}">${i+1}. ${c.t}</button>`).join('')}
+function show(i,scroll){cur=i;const c=L[i],q=c.q;
+$('#art').innerHTML=`<h2>${c.t}</h2><p class="lead">${c.l}</p>${c.b}
+<div class="quiz"><h3>Check yourself</h3><p>${q[0]}</p>${q[1].map((o,k)=>`<button data-k="${k}">${o}</button>`).join('')}<div class="fb"></div></div>
+<div class="pn">${i>0?'<button class="tbtn" data-go="'+(i-1)+'">Previous</button>':'<span></span>'}${i<L.length-1?'<button class="tbtn" data-go="'+(i+1)+'">Next chapter</button>':'<span></span>'}</div>`;
+nav();if(scroll)$('#reader').scrollIntoView();}
+document.addEventListener('click',e=>{const t=e.target;
+if(t.dataset.i)show(+t.dataset.i,1);
+else if(t.dataset.go)show(+t.dataset.go,1);
+else if(t.id=='start'){show(0,1)}
+else if(t.classList.contains('cp')){const x=t.nextElementSibling.innerText;(navigator.clipboard?navigator.clipboard.writeText(x):Promise.reject()).then(()=>t.textContent='Copied',()=>t.textContent='Press Ctrl+C');setTimeout(()=>t.textContent='Copy',1500)}
+else if(t.dataset.k!==undefined&&t.closest('.quiz')){const q=L[cur].q,k=+t.dataset.k,bs=t.parentNode.querySelectorAll('button');
+bs.forEach(b=>b.classList.remove('ok','no'));const fb=t.parentNode.querySelector('.fb');
+if(k==q[2]){t.classList.add('ok');fb.style.color='var(--ok)';fb.textContent='Correct. Chapter complete.';if(!done.includes(cur)){done.push(cur);save();prog();nav()}}
+else{t.classList.add('no');fb.style.color='var(--bad)';fb.textContent='Not quite. Reread the chapter and try again.'}}});
+$('#th').onclick=()=>{const r=document.documentElement,d=(r.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark';r.dataset.theme=d?'light':'dark'};
+prog();show(0,0);
+</script>
+</body>
+</html>
